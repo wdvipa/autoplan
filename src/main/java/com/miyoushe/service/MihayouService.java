@@ -171,35 +171,36 @@ public class MihayouService {
             return list;
         }
         //账号验证成功,写入用户数据，如果有多个数据则拿逗号分隔
-        String SR_uid = "";
-        String uid = "";
-        String nickname = "";
-        String SR_nickname = "";
+        StringBuilder SR_uid = new StringBuilder();
+        StringBuilder uid = new StringBuilder();
+        StringBuilder nickname = new StringBuilder();
+        StringBuilder SR_nickname = new StringBuilder();
         for (int i = 0; i < uidInfo.size(); i++) {
             Map<String, Object> map1 = uidInfo.get(i);
             if (i == 0) {
-                uid = (String) map1.get("uid");
-                nickname = (String) map1.get("nickname");
+                uid = new StringBuilder((String) map1.get("uid"));
+                nickname = new StringBuilder((String) map1.get("nickname"));
             } else {
-                uid = uid + "," + map1.get("uid");
-                nickname = nickname + "," + map1.get("nickname");
+                uid.append(",").append(map1.get("uid"));
+                nickname.append(",").append(map1.get("nickname"));
             }
 
         }
         for (int i = 0; i < uidInfo.size(); i++) {
             Map<String, Object> map2 = SR_uidInfo.get(i);
             if (i == 0) {
-                SR_uid = (String) map2.get("uid");
-                SR_nickname = (String) map2.get("nickname");
+                SR_uid = new StringBuilder((String) map2.get("uid"));
+                SR_nickname = new StringBuilder((String) map2.get("nickname"));
             } else {
-                SR_uid = uid + "," + map2.get("uid");
-                SR_nickname = SR_nickname + "," + map2.get("nickname");
+                SR_uid.append(",").append(map2.get("uid"));
+                SR_nickname.append(",").append(map2.get("nickname"));
             }
 
         }
-        autoMihayou.setStarRailUid(SR_uid);
-        autoMihayou.setGenshinUid(uid);
-        autoMihayou.setMiName(nickname);
+        autoMihayou.setStarRailUid(SR_uid.toString());
+        autoMihayou.setStarRailName(SR_nickname.toString());
+        autoMihayou.setGenshinUid(uid.toString());
+        autoMihayou.setMiName(nickname.toString());
         autoMihayou.setSuid((String) stringObjectMap.get("stuid"));
         autoMihayou.setStoken((String) stringObjectMap.get("stoken"));
         autoMihayou.setOtherKey((String) stringObjectMap.get("login_ticket_str"));

@@ -343,7 +343,7 @@ function miyousheHtmlUserInfo(data) {
                                                 <font class="miyoushe-p-font">${miyousheUser.genshinUid}</font>
                                             </p>
                                             <p class="layuiadmin-big-font">崩坏 星穹铁道UID：
-                                                <font class="miyoushe-p-font">${miyousheUser.StarRailUid}</font>
+                                                <font class="miyoushe-p-font">${miyousheUser.starRailUid}</font>
                                             </p>
                                             <p style="margin-top: 10px;">
                                                 ${addStatus(miyousheUser.status)}

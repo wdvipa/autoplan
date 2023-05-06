@@ -73,7 +73,7 @@ public class DailyTask implements Runnable {
             for (Map<String, Object> map : list) {
                 if (!(boolean) map.get("flag")){
                     //登录失败，直接返回
-                    map.put("msg",stringBuilder.toString() + "\n" + map.get("msg"));
+                    map.put("msg", stringBuilder + "\n" + map.get("msg"));
                     return map;
                 }
 
