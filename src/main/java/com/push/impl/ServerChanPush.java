@@ -37,6 +37,6 @@ public class ServerChanPush extends AbstractPush {
 
     @Override
     protected String generatePushBody(PushMetaInfo metaInfo, String content) {
-        return "text=Oldwu-HELPER任务简报&desp=" + content.replaceAll("=", ":");
+        return "text=任务简报&desp=" + content.replaceAll("=", ":");
     }
 }

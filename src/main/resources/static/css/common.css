@@ -19,17 +19,17 @@ ul {
 }
 
 .bilibiliLogo {
-    background: url(https://fastly.jsdelivr.net/gh/wyt1215819315/autoplan@master/src/main/resources/static/image/bilibili_logo.png) no-repeat 0 center;
+    background: url(../image/bilibili_logo.png) no-repeat 0 center;
     background-size: 40px 40px;
 }
 
 .netmusicLogo {
-    background: url(https://fastly.jsdelivr.net/gh/wyt1215819315/autoplan@master/src/main/resources/static/image/netmusic_logo.ico) no-repeat 0 center;
+    background: url(../image/netmusic_logo.ico) no-repeat 0 center;
     background-size: 40px 40px;
 }
 
 .miyousheLogo {
-    background: url(https://fastly.jsdelivr.net/gh/wyt1215819315/autoplan@master/src/main/resources/static/image/miyoushe_logo.ico) no-repeat 0 center;
+    background: url(../image/miyoushe_logo.ico) no-repeat 0 center;
     background-size: 40px 40px;
 }
 
@@ -44,22 +44,22 @@ ul {
 }
 
 .duckyIcon {
-    background: url(https://fastly.jsdelivr.net/gh/wyt1215819315/autoplan@master/src/main/resources/static/image/ducky_dyn.gif) no-repeat 0 center;
+    background: url(../image/ducky_dyn.gif) no-repeat 0 center;
     background-size: 30px 30px;
 }
 
 .bilibiliIcon {
-    background: url(https://fastly.jsdelivr.net/gh/wyt1215819315/autoplan@master/src/main/resources/static/image/bilibili.svg) no-repeat 0 center;
+    background: url(../image/bilibili.svg) no-repeat 0 center;
     background-size: 30px 30px;
 }
 
 .netmusicIcon {
-    background: url(https://fastly.jsdelivr.net/gh/wyt1215819315/autoplan@master/src/main/resources/static/image/netmusic.svg) no-repeat 0 center;
+    background: url(../image/netmusic.svg) no-repeat 0 center;
     background-size: 30px 30px;
 }
 
 .miyousheIcon {
-    background: url(https://fastly.jsdelivr.net/gh/wyt1215819315/autoplan@master/src/main/resources/static/image/miyoushe.png) no-repeat 0 center;
+    background: url(../image/miyoushe.png) no-repeat 0 center;
     background-size: 30px 30px;
 }
 

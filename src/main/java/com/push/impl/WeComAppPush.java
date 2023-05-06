@@ -71,7 +71,7 @@ public class WeComAppPush extends AbstractPush {
             request.setMsgType("mpnews");
             WeComMessageSendRequest.Articles Articles = new WeComMessageSendRequest.Articles();
             Articles.setAuthor("每日签到小助手");
-            Articles.setTitle("Oldwu-HELPER任务简报");
+            Articles.setTitle("任务简报");
             Articles.setDigest(content);
             Articles.setContent(content.replaceAll("\n", "<br>"));
             Articles.setThumb_media_id(metaInfo.getMediaid());

@@ -43,7 +43,7 @@ public class DiscordPush extends AbstractPush {
     protected String generatePushBody(PushMetaInfo metaInfo, String content) {
         DiscordWebhook discordWebhook = new DiscordWebhook();
         DiscordWebhook.EmbedObject embedObject = new DiscordWebhook.EmbedObject();
-        embedObject.setTitle("HELPER任务简报");
+        embedObject.setTitle("任务简报");
         embedObject.setDescription(content);
         embedObject.setColor(new Color(239,88,88));
         discordWebhook.addEmbed(embedObject);

@@ -1,6 +1,7 @@
 package com.miyoushe.sign;
 
 import com.miyoushe.sign.gs.GenShinSignMiHoYo;
+import com.miyoushe.sign.gs.StarRailSignMiHoYo;
 import com.miyoushe.sign.gs.GenshinHelperProperties;
 import com.miyoushe.sign.gs.MiHoYoConfig;
 import com.miyoushe.sign.gs.MiHoYoSignMiHoYo;
@@ -23,6 +24,8 @@ public class DailyTask implements Runnable {
 
     private static final Logger log = LogManager.getLogger(DailyTask.class);
 
+    public StarRailSignMiHoYo StarRailSign;
+
     public GenShinSignMiHoYo genShinSign;
 
     public MiHoYoSignMiHoYo miHoYoSign;
@@ -41,6 +44,7 @@ public class DailyTask implements Runnable {
 //        }
 
         genShinSign = new GenShinSignMiHoYo(account.getCookie());
+        StarRailSign = new StarRailSignMiHoYo(account.getCookie());
         if (account.getStuid() != null && account.getStoken() != null) {
             miHoYoSign = new MiHoYoSignMiHoYo(MiHoYoConfig.HubsEnum.YS.getGame(), account.getStuid(), account.getStoken());
         }
@@ -62,6 +66,20 @@ public class DailyTask implements Runnable {
         log.info("开始执行时间[ {} ],执行环境[ {} ]", dtf.format(LocalDateTime.now()), System.getProperty(Constant.GENSHIN_EXEC));
 
         stringBuilder.append("开始执行时间[ ").append(dtf.format(LocalDateTime.now())).append(" ],执行环境[ ").append(System.getProperty(Constant.GENSHIN_EXEC)).append(" ]");
+
+        if (StarRailSign != null) {
+            List<Map<String, Object>> list = StarRailSign.doSign();
+
+            for (Map<String, Object> map : list) {
+                if (!(boolean) map.get("flag")){
+                    //登录失败，直接返回
+                    map.put("msg",stringBuilder.toString() + "\n" + map.get("msg"));
+                    return map;
+                }
+
+                stringBuilder.append("\n").append("-----------------\n").append(map.get("msg"));
+            }
+        }
 
         if (genShinSign != null) {
             List<Map<String, Object>> list = genShinSign.doSign();

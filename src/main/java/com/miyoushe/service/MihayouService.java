@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.miyoushe.mapper.AutoMihayouDao;
 import com.miyoushe.model.AutoMihayou;
+import com.miyoushe.sign.gs.StarRailSignMiHoYo;
 import com.miyoushe.sign.gs.GenShinSignMiHoYo;
 import com.oldwu.constant.URLConstant;
 import com.oldwu.dao.AutoLogDao;
@@ -85,6 +86,7 @@ public class MihayouService {
             mihayous.setLcookie(null);
             mihayous.setWebhook(null);
             mihayous.setOtherKey(null);
+            mihayous.setStarRailUid(com.oldwu.util.StringUtils.userNameEncode(mihayous.getStarRailUid()));
             mihayous.setGenshinUid(com.oldwu.util.StringUtils.userNameEncode(mihayous.getGenshinUid()));
             mihayous.setMiName(com.oldwu.util.StringUtils.userNameEncode(mihayous.getMiName()));
         }
@@ -150,8 +152,10 @@ public class MihayouService {
         }
 
         //信息检查完毕后，尝试登录账号，进行验证
+        StarRailSignMiHoYo signMiHoYo_SR = new StarRailSignMiHoYo(autoMihayou.getCookie());
         GenShinSignMiHoYo signMiHoYo = new GenShinSignMiHoYo(autoMihayou.getCookie());
         List<Map<String, Object>> uidInfo = signMiHoYo.getUid();
+        List<Map<String, Object>> SR_uidInfo = signMiHoYo_SR.getUid();
 
         //账号都是同一个，如果要错一起错，一般不会出现不一致的情况
         if (!(boolean) uidInfo.get(0).get("flag")) {
@@ -160,9 +164,17 @@ public class MihayouService {
             list.add(map);
             return list;
         }
+        if (!(boolean) SR_uidInfo.get(0).get("flag")) {
+            map.put("code", "-1");
+            map.put("msg", (String) SR_uidInfo.get(0).get("msg"));
+            list.add(map);
+            return list;
+        }
         //账号验证成功,写入用户数据，如果有多个数据则拿逗号分隔
+        String SR_uid = "";
         String uid = "";
         String nickname = "";
+        String SR_nickname = "";
         for (int i = 0; i < uidInfo.size(); i++) {
             Map<String, Object> map1 = uidInfo.get(i);
             if (i == 0) {
@@ -174,6 +186,18 @@ public class MihayouService {
             }
 
         }
+        for (int i = 0; i < uidInfo.size(); i++) {
+            Map<String, Object> map2 = SR_uidInfo.get(i);
+            if (i == 0) {
+                SR_uid = (String) map2.get("uid");
+                SR_nickname = (String) map2.get("nickname");
+            } else {
+                SR_uid = uid + "," + map2.get("uid");
+                SR_nickname = SR_nickname + "," + map2.get("nickname");
+            }
+
+        }
+        autoMihayou.setStarRailUid(SR_uid);
         autoMihayou.setGenshinUid(uid);
         autoMihayou.setMiName(nickname);
         autoMihayou.setSuid((String) stringObjectMap.get("stuid"));
@@ -406,6 +430,7 @@ public class MihayouService {
         headers.put("Cookie", cookie);
         HttpResponse httpResponse = HttpUtils.doGet(URLConstant.MYS_PERSONAL_INFO_URL, "", headers, null);
         JSONObject json = HttpUtils.getJson(httpResponse);
+        System.out.println (json);
         if (json.getInteger("retcode") != 0) {
             return null;
         }

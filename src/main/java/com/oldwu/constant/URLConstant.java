@@ -89,7 +89,7 @@ public class URLConstant {
     //-------------mys url start
     //-------------mys url start
     //-------------mys url start
-    public static final String MYS_PERSONAL_INFO_URL = "https://bbs-api.mihoyo.com/user/wapi/getUserFullInfo?gids=2";
+    public static final String MYS_PERSONAL_INFO_URL = "https://bbs-api.mihoyo.com/user/api/getUserFullInfo?gids=2";
     public static final String MYS_TOKEN_URL = "https://api-takumi.mihoyo.com/auth/api/getMultiTokenByLoginTicket?login_ticket=%s&token_types=3&uid=%s";
 
 }

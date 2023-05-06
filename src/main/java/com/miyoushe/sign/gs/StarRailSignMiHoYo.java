@@ -20,13 +20,13 @@ import java.util.Map;
  * @Author ponking
  * @Date 2021/5/7 10:10
  */
-public class GenShinSignMiHoYo extends MiHoYoAbstractSign {
+public class StarRailSignMiHoYo extends MiHoYoAbstractSign {
 
     private static final Logger log = LogManager.getLogger(HttpUtils.class.getName());
 
-    private String uid;
+    private String SR_uid;
 
-    public GenShinSignMiHoYo(String cookie) {
+    public StarRailSignMiHoYo(String cookie) {
         super(cookie);
         setClientType(MihayouConstants.SIGN_CLIENT_TYPE);
         setAppVersion(MihayouConstants.APP_VERSION);
@@ -34,14 +34,14 @@ public class GenShinSignMiHoYo extends MiHoYoAbstractSign {
     }
 
     public void setUid(String uid) {
-        this.uid = uid;
+        this.SR_uid = SR_uid;
     }
 
     @Override
     public List<Map<String, Object>> doSign() {
-        List<Map<String, Object>> uid = getUid();
+        List<Map<String, Object>> SR_uid = getUid();
 
-        for (Map<String, Object> uidMap : uid) {
+        for (Map<String, Object> uidMap : SR_uid) {
             if (!(boolean) uidMap.get("flag")) {
                 continue;
             }
@@ -52,7 +52,7 @@ public class GenShinSignMiHoYo extends MiHoYoAbstractSign {
             uidMap.put("msg", uidMap.get("msg") + "\n" + doSign + "\n" + hubSign);
             continue;
         }
-        return uid;
+        return SR_uid;
     }
 
     /**
@@ -65,18 +65,18 @@ public class GenShinSignMiHoYo extends MiHoYoAbstractSign {
 
         Map<String, Object> data = new HashMap<>();
 
-        data.put("act_id", MiHoYoConfig.ACT_ID);
+        data.put("act_id", MiHoYoConfig.SR_ACT_ID);
         data.put("region", region);
         data.put("uid", uid);
 
-        JSONObject signResult = HttpUtils.doPost(MiHoYoConfig.SIGN_URL, getHeaders(""), data);
+        JSONObject signResult = HttpUtils.doPost(MiHoYoConfig.SR_SIGN_URL, getHeaders(""), data);
 
         if (signResult.getInteger("retcode") == 0) {
-            log.info("原神签到福利成功：{}", signResult.get("message"));
-            return "原神签到福利成功：" + signResult.get("message");
+            log.info("崩坏 星穹铁道签到福利成功：{}", signResult.get("message"));
+            return "崩坏 星穹铁道签到福利成功：" + signResult.get("message");
         } else {
-            log.info("原神签到福利签到失败：{}", signResult.get("message"));
-            return "原神签到福利签到失败：" + signResult.get("message");
+            log.info("崩坏 星穹铁道签到福利签到失败：{}", signResult.get("message"));
+            return "崩坏 星穹铁道签到福利签到失败：" + signResult.get("message");
         }
     }
 
@@ -91,10 +91,10 @@ public class GenShinSignMiHoYo extends MiHoYoAbstractSign {
 
         try {
 
-            JSONObject result = HttpUtils.doGet(MiHoYoConfig.ROLE_URL, getBasicHeaders());
+            JSONObject result = HttpUtils.doGet(MiHoYoConfig.SR_ROLE_URL, getBasicHeaders());
             if (result == null) {
                 map.put("flag", false);
-                map.put("msg", "获取原神uid失败，cookie可能有误！");
+                map.put("msg", "获取星穹铁道uid失败，cookie可能有误！");
                 list.add(map);
                 return list;
             }
@@ -102,28 +102,27 @@ public class GenShinSignMiHoYo extends MiHoYoAbstractSign {
             JSONArray jsonArray = result.getJSONObject("data").getJSONArray("list");
 
             for (Object user : jsonArray) {
-                JSONObject userInfo = (JSONObject) user;
-                String uid = userInfo.getString("game_uid");
-                String nickname = userInfo.getString("nickname");
-                String regionName = userInfo.getString("region_name");
-                String region = userInfo.getString("region");
+                JSONObject SR_userInfo = (JSONObject) user;
+                String SR_uid = SR_userInfo.getString("game_uid");
+                String SR_nickname = SR_userInfo.getString("nickname");
+                String SR_regionName = SR_userInfo.getString("region_name");
+                String SR_region = SR_userInfo.getString("region");
 
-                log.info("获取用户原神UID：{}", uid);
-                log.info("当前用户原神名称：{}", nickname);
-                log.info("当前用户原神服务器：{}", regionName);
+                log.info("获取用户星穹铁道UID：{}", SR_uid);
+                log.info("当前用户星穹铁道名称：{}", SR_nickname);
+                log.info("当前用户星穹铁道服务器：{}", SR_regionName);
 
-                setUid(uid);
+                setUid(SR_uid);
 
                 Map<String, Object> mapInfo = new HashMap<>();
-                mapInfo.put("uid", uid);
-                mapInfo.put("nickname", nickname);
-                mapInfo.put("region", region);
+                mapInfo.put("uid", SR_uid);
+                mapInfo.put("nickname", SR_nickname);
+                mapInfo.put("region", SR_region);
                 mapInfo.put("flag", true);
-                mapInfo.put("msg", "登录成功！用户原神UID：" + uid + "，用户名：" + nickname);
+                mapInfo.put("msg", "登录成功！用户崩坏 星穹铁道UID：" + SR_uid + "，用户名：" + SR_nickname);
 
                 list.add(mapInfo);
             }
-
 
             return list;
         } catch (Exception e) {
@@ -144,10 +143,10 @@ public class GenShinSignMiHoYo extends MiHoYoAbstractSign {
     public Award getAwardInfo(int day) {
         Map<String, String> data = new HashMap<>();
 
-        data.put("act_id", MiHoYoConfig.ACT_ID);
-        data.put("region", MiHoYoConfig.REGION);
+        data.put("act_id", MiHoYoConfig.SR_ACT_ID);
+        data.put("region", MiHoYoConfig.SR_REGION);
 
-        JSONObject awardResult = HttpUtils.doGet(MiHoYoConfig.AWARD_URL, getHeaders(""));
+        JSONObject awardResult = HttpUtils.doGet(MiHoYoConfig.SR_AWARD_URL, getHeaders(""));
         JSONArray jsonArray = awardResult.getJSONObject("data").getJSONArray("awards");
 
         List<Award> awards = JSON.parseObject(JSON.toJSONString(jsonArray), new TypeReference<List<Award>>() {});
@@ -163,11 +162,11 @@ public class GenShinSignMiHoYo extends MiHoYoAbstractSign {
     public String hubSign(String uid, String region) {
         Map<String, Object> data = new HashMap<>();
 
-        data.put("act_id", MiHoYoConfig.ACT_ID);
+        data.put("act_id", MiHoYoConfig.SR_ACT_ID);
         data.put("region", region);
         data.put("uid", uid);
 
-        JSONObject signInfoResult = HttpUtils.doGet(MiHoYoConfig.INFO_URL, getHeaders(""), data);
+        JSONObject signInfoResult = HttpUtils.doGet(MiHoYoConfig.SR_INFO_URL, getHeaders(""), data);
         if (signInfoResult == null || signInfoResult.getJSONObject("data") == null){
             return null;
         }

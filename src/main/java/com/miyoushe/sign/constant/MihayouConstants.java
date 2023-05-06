@@ -19,7 +19,7 @@ public class MihayouConstants {
     /**
      * AppVersion
      */
-    public static final String APP_VERSION = "2.38.1";
+    public static final String APP_VERSION = "2.49.1";
 
     /**
      * 签到Salt

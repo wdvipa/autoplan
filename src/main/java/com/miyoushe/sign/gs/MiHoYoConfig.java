@@ -6,13 +6,46 @@ package com.miyoushe.sign.gs;
  */
 public class MiHoYoConfig {
 
+    /**
+     * hkrpg
+     **/
+    public static final String SR_ACT_ID = "e202304121516551"; // 切勿乱修改
+
+    public static final String SR_APP_VERSION = "2.49.1"; // 切勿乱修改
+
+    /**
+     * Android 2
+     */
+    public static final String SR_CLIENT_TYPE = "5"; // 切勿乱修改
+
+    public static final String SR_DEVICE_NAME = "Xiaomi Redmi Note 4";
+
+    public static final String SR_DEVICE_MODE = "Redmi Note 4";
+
+    public static final String SR_REGION = "hkrpg_cn"; // 切勿乱修改
+
+    public static final String SR_REFERER_URL = String.format("https://webstatic.mihoyo.com/bbs/event/signin/hkrpg/index.html?bbs_auth_required=%s&act_id=%s&utm_source=%s&utm_medium=%s&utm_campaign=%s", true, SR_ACT_ID, "bbs", "mys", "icon");
+
+    public static final String SR_AWARD_URL = String.format("https://api-takumi.mihoyo.com/event/luna/home?act_id=%s", SR_ACT_ID);
+
+    public static final String SR_ROLE_URL = String.format("https://api-takumi.mihoyo.com/binding/api/getUserGameRolesByCookie?game_biz=%s", "hkrpg_cn");
+
+    public static final String SR_INFO_URL = "https://api-takumi.mihoyo.com/event/luna/info";
+
+    public static final String SR_SIGN_URL = "https://api-takumi.mihoyo.com/event/luna/sign";
+
+    public static final String SR_USER_AGENT = String.format("Mozilla/5.0 (iPhone; CPU iPhone OS 14_0_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) miHoYoBBS/%s", SR_APP_VERSION);
+
+    public static final String SR_USER_AGENT_TEMPLATE = "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) miHoYoBBS/%s";
+
+//    public static final String USER_AGENT = "okhttp/4.8.0";
 
     /**
      * genshin
      **/
     public static final String ACT_ID = "e202009291139501"; // 切勿乱修改
 
-    public static final String APP_VERSION = "2.3.0"; // 切勿乱修改
+    public static final String APP_VERSION = "2.4.0"; // 切勿乱修改
 
     /**
      * Android 2
